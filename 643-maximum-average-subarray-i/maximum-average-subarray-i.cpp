@@ -8,8 +8,8 @@ public:
         m=s;
         int i=0,j=k;
         while(j<v.size()){
-            s+=v[j];
-            s-=v[i];
+            s+=v[j]-v[i];
+            
             if(s>=m){
                 m=s;
             }
