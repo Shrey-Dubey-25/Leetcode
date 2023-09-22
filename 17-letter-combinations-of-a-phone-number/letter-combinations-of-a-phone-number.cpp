@@ -5,8 +5,8 @@ public:
         ans.push_back(out);
         return;
     }
-    for(int i=0;i<t[s[ind]-'0'].size();i++){
-        out+=t[s[ind]-'0'][i];
+    for(int i=0;i<t[s[ind]-'0'-2].size();i++){
+        out+=t[s[ind]-'0'-2][i];
         helper(t,s,ind+1,ans,out);
         out.pop_back();
     }
@@ -14,7 +14,7 @@ public:
 }
 
 vector<string> letterCombinations(string d) {
-    vector<string>t{"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+    vector<string>t{"abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
     vector<string>ans;
     if(d.size()==0){
         return ans;
