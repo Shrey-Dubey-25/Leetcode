@@ -1,43 +1,36 @@
 class Solution {
 public:
-    bool issafe(vector<vector<char>>&b,int& x,int& y,char& val){
-        for (int row = 0; row < 9; row++) {
-        if (b[row][y] == val || b[x][row] == val) {
-            return false;
-        }
-        }
-        int startRow = x - x % 3;
-        int startCol = y - y % 3;
-
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 3; j++) {
-            if (b[i + startRow][j + startCol] == val) {
-                return false;
-            }
-        }
-    }
+    bool issafe(vector<vector<char>> &board, int i, int j, char val)
+{
+    int row = i - i%3, column = j - j%3;
+    for(int x=0; x<9; x++) if(board[x][j] == val) return false;
+    for(int y=0; y<9; y++) if(board[i][y] == val) return false;
+    for(int x=0; x<3; x++)
+    for(int y=0; y<3; y++)
+        if(board[row+x][column+y] == val) return false;
     return true;
-    }
-    bool solver(vector<vector<char>>&v){
-        for(int i=0;i<v.size();i++){
-            for(int j=0;j<v.size();j++){
-                if(v[i][j]=='.'){
-                    for(char val='1';val<='9';val++){
-                        if(issafe(v,i,j,val)){
-                            v[i][j]=val;
-                            if(solver(v)){
-                                return true;
-                            }
-                            v[i][j]='.';
-                        }    
-                    }
-                    return false;
-                }
-            }
+}
+
+bool helper(vector<vector<char>>&board,int i,int j){
+    if(i==9) return true;
+    if(j==9) return helper(board, i+1, 0);
+    if(board[i][j] != '.') return helper(board, i, j+1);
+
+    for(char c='1'; c<='9'; c++)
+    {
+        if(issafe(board, i, j, c))
+        {
+            board[i][j] = c;
+            if(helper(board, i, j+1)) return true;
+            board[i][j] = '.';
         }
-        return true;   
-    }
-    void solveSudoku(vector<vector<char>>& board) {
-        solver(board);
-    }
+    } 
+    return false;
+}
+
+void solveSudoku(vector<vector<char>>& board) {
+    vector<vector<char>>ans;
+    int i=0,j=0;
+    helper(board,i,j);
+}
 };
