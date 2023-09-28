@@ -1,27 +1,27 @@
 class Solution {
 public:
-void helper(vector<int>&v,int i,int& t,int s,vector<int>path,vector<vector<int>>&ans){
-    if(s==t){
+void helper(vector<int>&v,int i,int t,vector<int>path,vector<vector<int>>&ans){
+    if(t==0){
         ans.push_back(path);
-        return ;
+        return;
     }
-    if(i==v.size() || s>t){
-        return ;
-    }   
+    if(i==v.size()||t<0){
+        return;
+    }
     path.push_back(v[i]);
-    helper(v,i,t,s+v[i],path,ans);
+    helper(v,i,t-v[i],path,ans);
     path.pop_back();
-    if(i+1<v.size()){
-        helper(v,i+1,t,s,path,ans);
-    }
-
+    helper(v,i+1,t,path,ans);
 }
 
 
-    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-        vector<vector<int>>ans;
-        vector<int>path;
-        helper(candidates,0,target,0,path,ans);
-        return ans;        
-    }
+vector<vector<int>> combinationSum(vector<int>& v, int t) {
+    vector<vector<int>>ans;
+    vector<int>path;
+    sort(v.begin(),v.end());
+    helper(v,0,t,path,ans);
+    return ans;
+
+}
+
 };
