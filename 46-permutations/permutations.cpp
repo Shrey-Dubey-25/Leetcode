@@ -1,6 +1,6 @@
 class Solution {
 public:
-void helper(vector<int>&v,vector<int>temp,vector<bool>vis,vector<vector<int>>&ans){
+void helper(vector<int>&v,vector<int>&temp,vector<bool>&vis,vector<vector<int>>&ans){
         if(temp.size()==v.size()){
             ans.push_back(temp);
             return;
@@ -19,7 +19,8 @@ void helper(vector<int>&v,vector<int>temp,vector<bool>vis,vector<vector<int>>&an
 vector<vector<int>> permute(vector<int>& v) {
     vector<vector<int>>ans;
     vector<bool>vis(v.size(),0);
-    helper(v,{},vis,ans);
+    vector<int>t;
+    helper(v,t,vis,ans);
     return ans;
 }
 };
